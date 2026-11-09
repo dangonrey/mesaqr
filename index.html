@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MesaQR · Cartas digitales para bares y restaurantes</title>
+<meta name="description" content="Carta digital con QR para tu bar o restaurante en La Línea y el Campo de Gibraltar. En español e inglés, cambios de precio al momento y sin reimprimir.">
+<style>
+  :root{--ink:#1d1a17;--muted:#6b625a;--bg:#fbf8f3;--line:#ebe3d7;--brand:#b5462f;--deep:#1f4e5f;--ok:#2f6b35}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+  a{color:inherit}
+  .w{max-width:1040px;margin:0 auto;padding:0 20px}
+  .top{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+  .logo{font-weight:800;font-size:20px;letter-spacing:-.3px;text-decoration:none}
+  .logo span{color:var(--brand)}
+  .btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:12px;border:0;font-size:15.5px}
+  .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn.sm{padding:9px 15px;font-size:14px}
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:36px 0 56px}
+  .hero h1{font-family:Georgia,serif;font-size:clamp(32px,5vw,50px);line-height:1.08;margin:0 0 16px;letter-spacing:-.5px}
+  .hero h1 em{color:var(--brand);font-style:normal}
+  .hero p{font-size:18px;color:var(--muted);margin:0 0 24px}
+  .cta{display:flex;gap:10px;flex-wrap:wrap}
+  .phone{justify-self:center;width:260px;border-radius:36px;background:#111;padding:10px;box-shadow:0 24px 50px rgba(31,78,95,.25)}
+  .phone iframe{width:100%;height:500px;border:0;border-radius:28px;background:#fff;display:block}
+  .phone-cap{text-align:center;font-size:13px;color:var(--muted);margin-top:10px}
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  h2{font-family:Georgia,serif;font-size:clamp(26px,3.6vw,34px);margin:0 0 8px;letter-spacing:-.3px}
+  .lead{color:var(--muted);margin:0 0 30px;font-size:17px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+  .box .ic{font-size:26px}
+  .box h3{margin:8px 0 6px;font-size:17px}
+  .box p{margin:0;color:var(--muted);font-size:15px}
+  .steps{counter-reset:s}
+  .steps .box h3::before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--deep);color:#fff;font-size:14px;margin-right:8px}
+  .promo{background:var(--deep);color:#fff;border-radius:14px;padding:14px 18px;margin:0 0 24px;font-weight:600}
+  .promo b{color:#ffd9a8}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+  .plan{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 22px;display:flex;flex-direction:column}
+  .plan.best{border:2px solid var(--brand);position:relative;box-shadow:0 12px 30px rgba(181,70,47,.12)}
+  .plan.best::before{content:"Más elegido";position:absolute;top:-12px;left:22px;background:var(--brand);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+  .plan h3{margin:0;font-size:19px}
+  .plan .for{color:var(--muted);font-size:14px;margin:4px 0 16px}
+  .price{font-size:36px;font-weight:800;letter-spacing:-1px}
+  .price small{font-size:15px;font-weight:500;color:var(--muted);letter-spacing:0}
+  .monthly{font-weight:700;color:var(--deep);margin:2px 0 18px}
+  .plan ul{list-style:none;padding:0;margin:0 0 22px;flex:1}
+  .plan li{padding:6px 0 6px 26px;position:relative;font-size:15px;border-bottom:1px dashed var(--line)}
+  .plan li::before{content:"✓";position:absolute;left:2px;color:var(--ok);font-weight:800}
+  .plan .btn{text-align:center}
+  .extras{margin-top:18px;color:var(--muted);font-size:14.5px}
+  details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:10px}
+  summary{font-weight:700;cursor:pointer}
+  details p{margin:10px 0 0;color:var(--muted)}
+  .final{text-align:center;background:linear-gradient(160deg,var(--deep),#163a47);color:#fff;border-radius:22px;padding:44px 22px;margin:20px 0 40px}
+  .final p{opacity:.85;margin:0 0 22px}
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 0 40px}
+  .wa{position:fixed;right:18px;bottom:18px;background:#25d366;color:#fff;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:28px;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.2);z-index:9}
+  @media (max-width:820px){
+    .hero,.grid3,.plans{grid-template-columns:1fr}
+    .hero{padding-top:12px}
+    .phone{width:240px}
+    .top .btn{display:none}
+  }
+</style>
+</head>
+<body>
+<!-- CONFIGURA AQUÍ: cambia el número de WhatsApp (formato internacional, sin + ni espacios) -->
+<script>const WHATSAPP="34648564191";</script>
+
+<div class="w">
+  <div class="top">
+    <a class="logo" href="#">Mesa<span>QR</span> <small style="font-weight:500;font-size:13px;color:var(--muted)">· Daniel González Rey</small></a>
+    <a class="btn sm wa-link" href="#">Pedir información</a>
+  </div>
+
+  <div class="hero">
+    <div>
+      <h1>Tu carta en el móvil de tus clientes, <em>sin volver a imprimirla</em>.</h1>
+      <p>Carta digital con QR para bares y restaurantes de La Línea y el Campo de Gibraltar. En español e inglés, con alérgenos, y si cambias un precio se actualiza al momento.</p>
+      <div class="cta">
+        <a class="btn wa-link" href="#">Quiero la mía</a>
+        <a class="btn ghost" href="https://dangonrey.github.io/carta-demo/" target="_blank" rel="noopener">Ver demo</a>
+      </div>
+    </div>
+    <div>
+      <div class="phone"><iframe src="https://dangonrey.github.io/carta-demo/" title="Demo de carta digital" loading="lazy"></iframe></div>
+      <div class="phone-cap">👆 Es una demo real, pruébala</div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="w">
+    <h2>¿Por qué una carta digital?</h2>
+    <p class="lead">Lo que más nos piden los bares de la zona.</p>
+    <div class="grid3">
+      <div class="box"><div class="ic">💸</div><h3>Adiós a la imprenta</h3><p>¿Sube el precio del atún? Me mandas un WhatsApp y en el mismo día la carta está cambiada. Sin reimprimir ni tachar con boli.</p></div>
+      <div class="box"><div class="ic">🇬🇧</div><h3>Clientes de Gibraltar y turistas</h3><p>Con un toque la carta pasa al inglés. Menos tiempo explicando platos en la mesa y más pedidos.</p></div>
+      <div class="box"><div class="ic">⚠️</div><h3>Alérgenos claros</h3><p>Cada plato muestra sus alérgenos. Tú cumples la normativa y el cliente pide tranquilo.</p></div>
+      <div class="box"><div class="ic">🍽️</div><h3>Menú del día destacado</h3><p>Lo pones arriba del todo y lo cambiamos cada día si hace falta.</p></div>
+      <div class="box"><div class="ic">📱</div><h3>Sin apps ni descargas</h3><p>El cliente escanea el QR con la cámara y ya está. Funciona en cualquier móvil.</p></div>
+      <div class="box"><div class="ic">🤝</div><h3>Alguien de aquí</h3><p>Soy Daniel, de la zona: me paso por tu local, hago las fotos y te lo dejo funcionando.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="w">
+    <h2>Cómo funciona</h2>
+    <p class="lead">En menos de una semana la tienes en las mesas.</p>
+    <div class="grid3 steps">
+      <div class="box"><h3>Me das tu carta</h3><p>Una foto de la carta en papel me sirve. Si quieres, me paso a hacer fotos de los platos.</p></div>
+      <div class="box"><h3>La monto y la revisas</h3><p>Te envío el enlace para que la veas en tu móvil y me digas qué cambiar.</p></div>
+      <div class="box"><h3>QR en las mesas</h3><p>Te entrego los QR listos para imprimir o en pegatinas. A partir de ahí, me pides cambios por WhatsApp.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="precios">
+  <div class="w">
+    <h2>Precios claros</h2>
+    <p class="lead">Un pago único para montarla y una cuota pequeña que incluye todos los cambios. Sin permanencia.</p>
+    <div class="promo">🎉 Oferta de lanzamiento: <b>50 % de descuento en el montaje</b> para los 5 primeros locales.</div>
+    <div class="plans">
+      <div class="plan">
+        <h3>Básica</h3>
+        <div class="for">Para bares con una carta corta</div>
+        <div class="price">149 € <small>montaje</small></div>
+        <div class="monthly">+ 10 €/mes</div>
+        <ul>
+          <li>Carta digital con tu logo y tus colores</li>
+          <li>Hasta 40 platos</li>
+          <li>QR listos para imprimir</li>
+          <li>Alérgenos en cada plato</li>
+          <li>2 cambios al mes incluidos</li>
+        </ul>
+        <a class="btn ghost wa-link" data-plan="Básica" href="#">Elegir Básica</a>
+      </div>
+      <div class="plan best">
+        <h3>Completa</h3>
+        <div class="for">Para restaurantes y bares con turistas</div>
+        <div class="price">249 € <small>montaje</small></div>
+        <div class="monthly">+ 15 €/mes</div>
+        <ul>
+          <li>Todo lo de la Básica</li>
+          <li>Platos ilimitados</li>
+          <li><b>Español e inglés</b></li>
+          <li>Menú del día actualizable</li>
+          <li>Fotos de los platos (me paso por tu local)</li>
+          <li>Cambios ilimitados</li>
+        </ul>
+        <a class="btn wa-link" data-plan="Completa" href="#">Elegir Completa</a>
+      </div>
+      <div class="plan">
+        <h3>Pro</h3>
+        <div class="for">Tu presencia online completa</div>
+        <div class="price">399 € <small>montaje</small></div>
+        <div class="monthly">+ 25 €/mes</div>
+        <ul>
+          <li>Todo lo de la Completa</li>
+          <li>Web del local con dominio propio (tubar.es)</li>
+          <li>Botón de reservas por WhatsApp</li>
+          <li>Ficha de Google Maps optimizada</li>
+          <li>Pegatinas QR resistentes para mesas</li>
+        </ul>
+        <a class="btn ghost wa-link" data-plan="Pro" href="#">Elegir Pro</a>
+      </div>
+    </div>
+    <p class="extras">Extras: idioma adicional (francés, alemán…) +50 € · Pegatinas QR plastificadas desde 2 €/ud · Precios sin IVA.</p>
+  </div>
+</section>
+
+<section>
+  <div class="w">
+    <h2>Preguntas frecuentes</h2>
+    <details><summary>¿Tengo que quitar la carta en papel?</summary><p>No. Muchos locales mantienen algunas cartas en papel para quien las prefiera y usan el QR para el resto.</p></details>
+    <details><summary>¿Y si quiero dejar de pagar la cuota?</summary><p>Sin permanencia: avisas y la damos de baja a final de mes.</p></details>
+    <details><summary>¿Cuánto tarda un cambio de precio o de plato?</summary><p>Normalmente el mismo día. Me escribes por WhatsApp y te aviso cuando esté hecho.</p></details>
+    <details><summary>¿Mis clientes tienen que descargarse algo?</summary><p>No. Abren la cámara, escanean el QR y la carta se abre en el navegador.</p></details>
+    <details><summary>¿Necesito saber de informática?</summary><p>Nada. De eso me encargo yo.</p></details>
+  </div>
+</section>
+
+<div class="w">
+  <div class="final">
+    <h2>¿La probamos en tu local?</h2>
+    <p>Escríbeme y te preparo una muestra con tu propia carta, sin compromiso.</p>
+    <a class="btn wa-link" href="#" style="background:#fff;color:var(--deep)">Hablar por WhatsApp</a>
+  </div>
+</div>
+
+<footer>MesaQR · Daniel González Rey · WhatsApp 648 564 191<br>La Línea de la Concepción · Cartas digitales para hostelería</footer>
+<a class="wa wa-link" href="#" aria-label="WhatsApp">💬</a>
+
+<script>
+document.querySelectorAll(".wa-link").forEach(a=>{
+  const plan=a.dataset.plan;
+  const msg = plan ? `Hola, me interesa el plan ${plan} de carta digital para mi local.` : "Hola, me interesa una carta digital con QR para mi local.";
+  a.href=`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  a.target="_blank"; a.rel="noopener";
+});
+</script>
+</body>
+</html>
